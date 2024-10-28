@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar usuario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="cerrarModal()"> close </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="registrarForm" (ngSubmit)="onSubmit()" >
+ 
+  <ion-item>
+  <ion-label position="floating">Email</ion-label>
+  <ion-input formControlName="email" ></ion-input>
+  </ion-item>
+  <ng-container *ngFor="let validation of validation_messages.email">
+      <small class="error-message"
+        *ngIf="registrarForm.get('email')?.hasError(validation.type) && (registrarForm.get('email')?.dirty || registrarForm.get('email')?.touched)">
+        {{ validation.message }}</small>
+  </ng-container>
+
+  <ion-item>
+    <ion-label position="floating">>Password</ion-label>
+    <ion-input formControlName="password" ></ion-input>
+    </ion-item>
+    <ng-container *ngFor="let validation of validation_messages.password">
+        <small class="error-message"
+          *ngIf="registrarForm.get('password')?.hasError(validation.type) && (registrarForm.get('password')?.dirty || registrarForm.get('password')?.touched)">
+          {{ validation.message }}</small>
+    </ng-container>
+      <ion-button  type="submit" expand="block" padding color="primary" class="ion-margintop">Registrar</ion-button>
+  </form>
+  </ion-content>
