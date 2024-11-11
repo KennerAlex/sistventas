@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>carrito</ion-title>
+    <ion-title>Carrito-Detalle de Pedido de Venta</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
@@ -9,6 +9,81 @@
       <ion-title size="large">carrito</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div [formGroup]="registrarForm" >
+    <label>Datos del Cliente</label>
+    <ion-item>
+      <ion-label>Cliente * </ion-label>
+      <ion-select
+        formControlName="cboCliente"
+        placeholder="Selecciona un cliente"
+      >
+        <ion-select-option
+          *ngFor="let cliente of array_clientes"
+          [value]="cliente.cliente_id"
+        >
+          {{ cliente.nombres }}
+        </ion-select-option>
+      </ion-select>
+      <ng-container *ngFor="let validation of validation_messages.cboCliente">
+        <small
+          class="error-message"
+          *ngIf="registrarForm.get('cboCliente')?.hasError(validation.type) &&
+            (registrarForm.get('cboCliente')?.dirty ||
+            registrarForm.get('cboCliente')?.touched)"
+        >
+          {{ validation.message }}</small
+        >
+      </ng-container>
+    </ion-item>
+    <ion-item>
+      <ion-label>Forma de Pago * </ion-label>
+      <ion-select
+        formControlName="cboFormaPago"
+        placeholder="Selecciona una forma de pago"
+      >
+        <ion-select-option
+          *ngFor="let forma of array_formasPago"
+          [value]="forma.idFormaPago"
+        >
+          {{ forma.descripcion }}
+        </ion-select-option>
+      </ion-select>
+      <ng-container *ngFor="let validation of validation_messages.cboFormaPago">
+        <small
+          class="error-message"
+          *ngIf="registrarForm.get('cboFormaPago')?.hasError(validation.type) &&
+            (registrarForm.get('cboFormaPago')?.dirty ||
+            registrarForm.get('cboFormaPago')?.touched)"
+        >
+          {{ validation.message }}</small
+        >
+      </ng-container>
+    </ion-item>
+    <ion-item>
+      <ion-label> Moneda * </ion-label>
+      <ion-select
+        formControlName="cboMoneda"
+        placeholder="Selecciona una moneda"
+      >
+        <ion-select-option
+          *ngFor="let moneda of array_Monedas"
+          [value]="moneda.idMoneda"
+        >
+          {{ moneda.descripcion }}
+        </ion-select-option>
+      </ion-select>
+      <ng-container *ngFor="let validation of validation_messages.cboFormaPago">
+        <small
+          class="error-message"
+          *ngIf="registrarForm.get('cboMoneda')?.hasError(validation.type) &&
+            (registrarForm.get('cboMoneda')?.dirty ||
+            registrarForm.get('cboMoneda')?.touched)"
+        >
+          {{ validation.message }}</small
+        >
+      </ng-container>
+    </ion-item>
+  </div>
   <ion-grid>
     <ion-row>
       <ion-col>Codigo</ion-col>
@@ -40,4 +115,6 @@
     </ion-row>
   </ion-grid>
   <ion-button (click)="VaciarCarrito()">Vaciar carrito</ion-button>
+<ion-button (click)="guardarPedidoVenta()">
+Guardar</ion-button>
 </ion-content>
